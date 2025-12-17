@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  mcp-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: qarnot-mcp-server
+    ports:
+      - "${MCP_PORT:-3000}:3000"
+    environment:
+      # MCP Server Configuration
+      MCP_AUTH_TOKEN: ${MCP_AUTH_TOKEN:?MCP_AUTH_TOKEN is required}
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: 3000
+
+      # Qarnot Cloud Configuration
+      QARNOT_API_TOKEN: ${QARNOT_API_TOKEN:?QARNOT_API_TOKEN is required}
+      QARNOT_API_URL: ${QARNOT_API_URL:-https://api.qarnot.com}
+
+      # Logging Configuration
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      LOG_FORMAT: ${LOG_FORMAT:-json}
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import http.client; conn = http.client.HTTPConnection('localhost', 3000); conn.request('GET', '/health'); response = conn.getresponse(); exit(0 if response.status == 200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+    networks:
+      - mcp-network
+
+    # Resource limits (adjust based on your needs)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+
+    # Read-only root filesystem (except for necessary directories)
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M,mode=1777
+      - /app/.cache:size=50M,mode=755
+
+networks:
+  mcp-network:
+    driver: bridge
