@@ -39,10 +39,7 @@ class GetJobStatusUseCase:
             QarnotAPIError: If API call fails
             JobNotFoundError: If job doesn't exist
         """
-        logger.info(
-            "Executing get job status use case",
-            extra={"job_id": job_id}
-        )
+        logger.info("Executing get job status use case", extra={"job_id": job_id})
 
         job = await self.qarnot_client.get_job_status(job_id)
 
@@ -52,7 +49,7 @@ class GetJobStatusUseCase:
                 "job_id": job_id,
                 "status": job.status,
                 "progress": job.progress,
-            }
+            },
         )
 
         return job

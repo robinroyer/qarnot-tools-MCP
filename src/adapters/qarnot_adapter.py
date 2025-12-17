@@ -57,10 +57,7 @@ class QarnotAdapter(QarnotPort):
         #     api_url=self._api_url
         # )
 
-        logger.info(
-            "Qarnot adapter initialized",
-            extra={"api_url": self._api_url}
-        )
+        logger.info("Qarnot adapter initialized", extra={"api_url": self._api_url})
 
     async def submit_job(
         self,
@@ -96,7 +93,7 @@ class QarnotAdapter(QarnotPort):
                 "instance_count": instance_count,
                 "resource_type": resource_type,
                 "priority": priority,
-            }
+            },
         )
 
         try:
@@ -125,8 +122,7 @@ class QarnotAdapter(QarnotPort):
             )
 
             logger.info(
-                "Job submitted successfully",
-                extra={"job_id": job_id, "name": name}
+                "Job submitted successfully", extra={"job_id": job_id, "name": name}
             )
 
             return job
@@ -135,23 +131,19 @@ class QarnotAdapter(QarnotPort):
             logger.error(
                 "Connection error while submitting job",
                 extra={"name": name},
-                exc_info=e
+                exc_info=e,
             )
             raise QarnotConnectionError(f"Failed to connect to Qarnot API: {e}")
 
         except TimeoutError as e:
             logger.error(
-                "Timeout while submitting job",
-                extra={"name": name},
-                exc_info=e
+                "Timeout while submitting job", extra={"name": name}, exc_info=e
             )
             raise QarnotTimeoutError(f"Request timed out: {e}")
 
         except Exception as e:
             logger.error(
-                "Unexpected error submitting job",
-                extra={"name": name},
-                exc_info=e
+                "Unexpected error submitting job", extra={"name": name}, exc_info=e
             )
             raise QarnotAPIError(f"Failed to submit job: {e}")
 
@@ -184,9 +176,7 @@ class QarnotAdapter(QarnotPort):
 
         except Exception as e:
             logger.error(
-                "Error getting job status",
-                extra={"job_id": job_id},
-                exc_info=e
+                "Error getting job status", extra={"job_id": job_id}, exc_info=e
             )
             raise QarnotAPIError(f"Failed to get job status: {e}")
 
@@ -209,7 +199,7 @@ class QarnotAdapter(QarnotPort):
         """
         logger.info(
             "Retrieving job results",
-            extra={"job_id": job_id, "output_path": output_path}
+            extra={"job_id": job_id, "output_path": output_path},
         )
 
         try:
@@ -240,7 +230,7 @@ class QarnotAdapter(QarnotPort):
                     "job_id": job_id,
                     "file_count": result.file_count,
                     "file_size_bytes": result.file_size_bytes,
-                }
+                },
             )
 
             return result
@@ -250,9 +240,7 @@ class QarnotAdapter(QarnotPort):
 
         except Exception as e:
             logger.error(
-                "Error retrieving results",
-                extra={"job_id": job_id},
-                exc_info=e
+                "Error retrieving results", extra={"job_id": job_id}, exc_info=e
             )
             raise QarnotAPIError(f"Failed to retrieve results: {e}")
 
@@ -271,10 +259,7 @@ class QarnotAdapter(QarnotPort):
             JobNotFoundError: If job doesn't exist
             JobAlreadyCompletedError: If job already completed
         """
-        logger.info(
-            "Cancelling job",
-            extra={"job_id": job_id, "reason": reason}
-        )
+        logger.info("Cancelling job", extra={"job_id": job_id, "reason": reason})
 
         try:
             # Production implementation would:
@@ -292,8 +277,7 @@ class QarnotAdapter(QarnotPort):
             # In production: self.client.abort_task(job_id)
 
             logger.info(
-                "Job cancelled successfully",
-                extra={"job_id": job_id, "reason": reason}
+                "Job cancelled successfully", extra={"job_id": job_id, "reason": reason}
             )
 
             # Return job would be updated with cancelled status
@@ -303,11 +287,7 @@ class QarnotAdapter(QarnotPort):
             raise
 
         except Exception as e:
-            logger.error(
-                "Error cancelling job",
-                extra={"job_id": job_id},
-                exc_info=e
-            )
+            logger.error("Error cancelling job", extra={"job_id": job_id}, exc_info=e)
             raise QarnotAPIError(f"Failed to cancel job: {e}")
 
     async def list_jobs(
@@ -335,7 +315,7 @@ class QarnotAdapter(QarnotPort):
                 "limit": limit,
                 "offset": offset,
                 "status_filter": status_filter,
-            }
+            },
         )
 
         try:
@@ -350,7 +330,7 @@ class QarnotAdapter(QarnotPort):
 
             logger.info(
                 "Jobs listed successfully",
-                extra={"count": len(jobs), "total": total_count}
+                extra={"count": len(jobs), "total": total_count},
             )
 
             return jobs, total_count
@@ -359,6 +339,6 @@ class QarnotAdapter(QarnotPort):
             logger.error(
                 "Error listing jobs",
                 extra={"limit": limit, "offset": offset},
-                exc_info=e
+                exc_info=e,
             )
             raise QarnotAPIError(f"Failed to list jobs: {e}")

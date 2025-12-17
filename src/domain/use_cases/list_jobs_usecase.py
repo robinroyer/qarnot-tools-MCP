@@ -52,7 +52,7 @@ class ListJobsUseCase:
                 "limit": limit,
                 "offset": offset,
                 "status_filter": status_filter,
-            }
+            },
         )
 
         jobs, total_count = await self.qarnot_client.list_jobs(
@@ -72,7 +72,7 @@ class ListJobsUseCase:
                 "count": len(jobs),
                 "total": total_count,
                 "next_offset": next_offset,
-            }
+            },
         )
 
         return jobs, total_count, next_offset

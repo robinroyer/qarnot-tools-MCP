@@ -59,7 +59,7 @@ class BearerTokenAuth(AuthPort):
         if not secrets.compare_digest(token, self._valid_token):
             logger.warning(
                 "Authentication failed: invalid token",
-                extra={"token_prefix": token[:8] if len(token) >= 8 else "***"}
+                extra={"token_prefix": token[:8] if len(token) >= 8 else "***"},
             )
             raise AuthenticationError("Invalid bearer token")
 
@@ -91,18 +91,14 @@ class BearerTokenAuth(AuthPort):
 
         if len(parts) != 2:
             logger.warning(
-                "Malformed Authorization header",
-                extra={"parts_count": len(parts)}
+                "Malformed Authorization header", extra={"parts_count": len(parts)}
             )
             raise AuthenticationError("Malformed Authorization header")
 
         scheme, token = parts
 
         if scheme.lower() != "bearer":
-            logger.warning(
-                "Invalid authentication scheme",
-                extra={"scheme": scheme}
-            )
+            logger.warning("Invalid authentication scheme", extra={"scheme": scheme})
             raise AuthenticationError(
                 f"Invalid authentication scheme: {scheme}. Expected 'Bearer'"
             )

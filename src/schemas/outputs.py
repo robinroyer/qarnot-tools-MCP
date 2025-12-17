@@ -49,21 +49,15 @@ class JobStatus(BaseModel):
     job_id: str = Field(description="Unique identifier of the job")
     status: str = Field(
         description="Current status",
-        pattern="^(submitted|queued|running|completed|failed|cancelled)$"
+        pattern="^(submitted|queued|running|completed|failed|cancelled)$",
     )
-    progress: float = Field(
-        description="Progress percentage (0-100)",
-        ge=0.0,
-        le=100.0
-    )
+    progress: float = Field(description="Progress percentage (0-100)", ge=0.0, le=100.0)
     started_at: Optional[datetime] = Field(
-        default=None,
-        description="When job started execution"
+        default=None, description="When job started execution"
     )
     updated_at: datetime = Field(description="Last update timestamp")
     error_message: Optional[str] = Field(
-        default=None,
-        description="Error message if job failed"
+        default=None, description="Error message if job failed"
     )
 
 
@@ -85,16 +79,11 @@ class JobResults(BaseModel):
     status: str = Field(description="Final status of the job")
     results_url: str = Field(description="URL to access results storage")
     file_size_bytes: int = Field(
-        description="Total size of result files in bytes",
-        ge=0
+        description="Total size of result files in bytes", ge=0
     )
-    file_count: int = Field(
-        description="Number of result files",
-        ge=0
-    )
+    file_count: int = Field(description="Number of result files", ge=0)
     download_url: Optional[str] = Field(
-        default=None,
-        description="Pre-signed URL for direct download"
+        default=None, description="Pre-signed URL for direct download"
     )
 
 
@@ -113,10 +102,7 @@ class JobCancelled(BaseModel):
     job_id: str = Field(description="Unique identifier of the job")
     cancelled_at: datetime = Field(description="When job was cancelled")
     status: str = Field(description="Status after cancellation (should be 'cancelled')")
-    reason: Optional[str] = Field(
-        default=None,
-        description="Reason for cancellation"
-    )
+    reason: Optional[str] = Field(default=None, description="Reason for cancellation")
 
 
 class JobSummary(BaseModel):
@@ -148,14 +134,8 @@ class JobsList(BaseModel):
         }
     """
 
-    total_count: int = Field(
-        description="Total number of jobs matching filter",
-        ge=0
-    )
-    jobs: list[JobSummary] = Field(
-        description="List of jobs in this page"
-    )
+    total_count: int = Field(description="Total number of jobs matching filter", ge=0)
+    jobs: list[JobSummary] = Field(description="List of jobs in this page")
     next_offset: Optional[int] = Field(
-        default=None,
-        description="Offset for next page (null if no more pages)"
+        default=None, description="Offset for next page (null if no more pages)"
     )

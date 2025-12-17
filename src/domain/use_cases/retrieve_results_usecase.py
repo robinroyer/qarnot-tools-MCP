@@ -46,7 +46,7 @@ class RetrieveResultsUseCase:
         """
         logger.info(
             "Executing retrieve results use case",
-            extra={"job_id": job_id, "output_path": output_path}
+            extra={"job_id": job_id, "output_path": output_path},
         )
 
         result = await self.qarnot_client.retrieve_results(job_id, output_path)
@@ -57,7 +57,7 @@ class RetrieveResultsUseCase:
                 "job_id": job_id,
                 "file_count": result.file_count,
                 "file_size_bytes": result.file_size_bytes,
-            }
+            },
         )
 
         return result

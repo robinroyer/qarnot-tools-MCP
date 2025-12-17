@@ -18,25 +18,18 @@ class JobResult(BaseModel):
 
     job_id: str = Field(description="ID of the job these results belong to")
     status: str = Field(
-        description="Final status of the job",
-        pattern="^(completed|failed|cancelled)$"
+        description="Final status of the job", pattern="^(completed|failed|cancelled)$"
     )
     results_url: str = Field(description="URL to access results storage")
     file_size_bytes: int = Field(
-        description="Total size of result files in bytes",
-        ge=0
+        description="Total size of result files in bytes", ge=0
     )
-    file_count: int = Field(
-        description="Number of result files",
-        ge=0
-    )
+    file_count: int = Field(description="Number of result files", ge=0)
     download_url: Optional[str] = Field(
-        default=None,
-        description="Pre-signed URL for direct download (if available)"
+        default=None, description="Pre-signed URL for direct download (if available)"
     )
     checksum: Optional[str] = Field(
-        default=None,
-        description="Checksum of results archive (if applicable)"
+        default=None, description="Checksum of results archive (if applicable)"
     )
 
     class Config:

@@ -14,7 +14,7 @@ def create_mock_job(
     job_id: str = "job-mock-123",
     status: str = "running",
     progress: float = 50.0,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Job:
     """Create a mock job entity.
 
@@ -49,9 +49,7 @@ def create_mock_job(
 
 
 def create_mock_job_result(
-    job_id: str = "job-mock-123",
-    status: str = "completed",
-    **kwargs: Any
+    job_id: str = "job-mock-123", status: str = "completed", **kwargs: Any
 ) -> JobResult:
     """Create a mock job result entity.
 

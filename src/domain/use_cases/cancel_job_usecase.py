@@ -43,15 +43,13 @@ class CancelJobUseCase:
             JobAlreadyCompletedError: If job already completed
         """
         logger.info(
-            "Executing cancel job use case",
-            extra={"job_id": job_id, "reason": reason}
+            "Executing cancel job use case", extra={"job_id": job_id, "reason": reason}
         )
 
         job = await self.qarnot_client.cancel_job(job_id, reason)
 
         logger.info(
-            "Job cancelled successfully",
-            extra={"job_id": job_id, "status": job.status}
+            "Job cancelled successfully", extra={"job_id": job_id, "status": job.status}
         )
 
         return job

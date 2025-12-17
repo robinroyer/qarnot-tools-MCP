@@ -54,7 +54,9 @@ class TestBearerTokenAuth:
     @pytest.mark.auth
     def test_extract_token_missing_header(self, auth_adapter: BearerTokenAuth) -> None:
         """Test extraction with missing header."""
-        with pytest.raises(AuthenticationError, match="Authorization header is required"):
+        with pytest.raises(
+            AuthenticationError, match="Authorization header is required"
+        ):
             auth_adapter.extract_token_from_header(None)  # type: ignore
 
     @pytest.mark.unit

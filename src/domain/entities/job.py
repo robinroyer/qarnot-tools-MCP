@@ -21,43 +21,31 @@ class Job(BaseModel):
     name: str = Field(description="Human-readable name of the job")
     status: str = Field(
         description="Current status of the job",
-        pattern="^(submitted|queued|running|completed|failed|cancelled)$"
+        pattern="^(submitted|queued|running|completed|failed|cancelled)$",
     )
     instance_count: int = Field(description="Number of compute instances", ge=1)
     resource_type: str = Field(
-        description="Type of compute resource",
-        pattern="^(GPU|CPU)$"
+        description="Type of compute resource", pattern="^(GPU|CPU)$"
     )
-    priority: int = Field(
-        default=0,
-        description="Job priority",
-        ge=-100,
-        le=100
-    )
+    priority: int = Field(default=0, description="Job priority", ge=-100, le=100)
     tags: list[str] = Field(default_factory=list, description="Job tags")
     config: dict[str, Any] = Field(
         default_factory=dict,
-        description="Job configuration (script, docker image, etc.)"
+        description="Job configuration (script, docker image, etc.)",
     )
     created_at: datetime = Field(description="Timestamp when job was created")
     started_at: Optional[datetime] = Field(
-        default=None,
-        description="Timestamp when job started execution"
+        default=None, description="Timestamp when job started execution"
     )
     updated_at: datetime = Field(description="Timestamp of last update")
     completed_at: Optional[datetime] = Field(
-        default=None,
-        description="Timestamp when job completed"
+        default=None, description="Timestamp when job completed"
     )
     progress: float = Field(
-        default=0.0,
-        description="Job progress percentage",
-        ge=0.0,
-        le=100.0
+        default=0.0, description="Job progress percentage", ge=0.0, le=100.0
     )
     error_message: Optional[str] = Field(
-        default=None,
-        description="Error message if job failed"
+        default=None, description="Error message if job failed"
     )
 
     class Config:

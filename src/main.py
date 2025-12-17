@@ -66,7 +66,7 @@ def setup_logging(settings: Settings) -> None:
     logger = logging.getLogger(__name__)
     logger.info(
         "Logging configured",
-        extra={"level": settings.log_level, "format": settings.log_format}
+        extra={"level": settings.log_level, "format": settings.log_format},
     )
 
 
@@ -129,7 +129,7 @@ def main() -> None:
             extra={
                 "host": settings.mcp_host,
                 "port": settings.mcp_port,
-            }
+            },
         )
 
         # Run the FastMCP server
@@ -145,10 +145,7 @@ def main() -> None:
         sys.exit(0)
 
     except Exception as e:
-        logger.critical(
-            "Fatal error starting server",
-            exc_info=e
-        )
+        logger.critical("Fatal error starting server", exc_info=e)
         sys.exit(1)
 
 

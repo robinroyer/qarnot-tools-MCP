@@ -59,7 +59,7 @@ class SubmitJobUseCase:
                 "name": name,
                 "instance_count": instance_count,
                 "resource_type": resource_type,
-            }
+            },
         )
 
         # Business logic could include additional validation,
@@ -75,8 +75,7 @@ class SubmitJobUseCase:
         )
 
         logger.info(
-            "Job submitted successfully",
-            extra={"job_id": job.job_id, "name": name}
+            "Job submitted successfully", extra={"job_id": job.job_id, "name": name}
         )
 
         return job

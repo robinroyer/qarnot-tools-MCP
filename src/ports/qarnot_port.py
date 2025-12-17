@@ -65,9 +65,7 @@ class QarnotPort(ABC):
 
     @abstractmethod
     async def retrieve_results(
-        self,
-        job_id: str,
-        output_path: Optional[str] = None
+        self, job_id: str, output_path: Optional[str] = None
     ) -> JobResult:
         """Retrieve results from a completed job.
 
@@ -105,10 +103,7 @@ class QarnotPort(ABC):
 
     @abstractmethod
     async def list_jobs(
-        self,
-        limit: int = 10,
-        offset: int = 0,
-        status_filter: Optional[str] = None
+        self, limit: int = 10, offset: int = 0, status_filter: Optional[str] = None
     ) -> tuple[list[Job], int]:
         """List jobs for the authenticated user.
 

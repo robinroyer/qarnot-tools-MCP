@@ -30,9 +30,7 @@ class TestQarnotAdapter:
 
     @pytest.mark.unit
     @pytest.mark.qarnot
-    async def test_submit_job_creates_job(
-        self, qarnot_adapter: QarnotAdapter
-    ) -> None:
+    async def test_submit_job_creates_job(self, qarnot_adapter: QarnotAdapter) -> None:
         """Test that submit_job creates a job entity.
 
         Note: This test uses the mock implementation.
@@ -69,9 +67,7 @@ class TestQarnotAdapter:
 
     @pytest.mark.unit
     @pytest.mark.qarnot
-    async def test_list_jobs_returns_empty(
-        self, qarnot_adapter: QarnotAdapter
-    ) -> None:
+    async def test_list_jobs_returns_empty(self, qarnot_adapter: QarnotAdapter) -> None:
         """Test listing jobs returns empty list.
 
         Note: Mock implementation returns empty list.
@@ -83,9 +79,7 @@ class TestQarnotAdapter:
 
     @pytest.mark.unit
     @pytest.mark.qarnot
-    async def test_adapter_initialization(
-        self, test_settings: Settings
-    ) -> None:
+    async def test_adapter_initialization(self, test_settings: Settings) -> None:
         """Test adapter initializes with correct settings."""
         adapter = QarnotAdapter(test_settings)
 
